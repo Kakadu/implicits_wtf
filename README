@@ -1,0 +1,22 @@
+➜  impl_wtf git:(master) make
+ocamlbuild -use-ocamlfind -classic-display -plugin-tag "package(str)" -Is src src/MiniKanren.cmo src/MiniKanren.cmx
+ocamlfind ocamlopt -package unix -package ocamlbuild -linkpkg -package str myocamlbuild.ml /home/kakadu/.opam/4.02.3-modular-implicits/lib/ocaml/ocamlbuild/ocamlbuild.cmx -o myocamlbuild
+ocamlfind ocamldep -modules src/MiniKanren.mli > src/MiniKanren.mli.depends
+ocamlfind ocamldep -modules src/implicitPrinters.ml > src/implicitPrinters.ml.depends
+ocamlfind ocamlc -c -g -rectypes -I src -o src/implicitPrinters.cmo src/implicitPrinters.ml
+ocamlfind ocamlc -c -g -rectypes -I src -o src/MiniKanren.cmi src/MiniKanren.mli
+ocamlfind ocamldep -modules src/MiniKanren.ml > src/MiniKanren.ml.depends
+ocamlfind ocamlc -c -g -rectypes -I src -o src/MiniKanren.cmo src/MiniKanren.ml
+ocamlfind ocamlopt -c -g -rectypes -I src -o src/implicitPrinters.cmx src/implicitPrinters.ml
+ocamlfind ocamlopt -c -g -rectypes -I src -o src/MiniKanren.cmx src/MiniKanren.ml
+ocamlbuild -use-ocamlfind -classic-display -plugin-tag "package(str)" -Is src test005.native 
+ocamlfind ocamldep -modules test005.ml > test005.ml.depends
+ocamlfind ocamlc -c -g -rectypes -I src -o test005.cmo test005.ml
++ ocamlfind ocamlc -c -g -rectypes -I src -o test005.cmo test005.ml
+File "test005.ml", line 6, characters 18-22:
+Error: No instance found for implicit S.
+Command exited with code 2.
+Makefile:30: recipe for target 'test005.native' failed
+make: *** [test005.native] Error 10
+
+
