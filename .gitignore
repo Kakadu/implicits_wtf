@@ -1,0 +1,11 @@
+*.byte
+*.native
+/test*.log
+/_build
+/*.html
+/*.plain
+
+toplevel/a.out
+/all.h*
+/all
+
